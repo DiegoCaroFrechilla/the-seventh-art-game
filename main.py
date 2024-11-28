@@ -651,6 +651,58 @@ def manejamos_niveles():
         imagetoguess = [topPart, middlePart, bottomPart]
         image_to_guess_index = Math.random_range(0, len(imagetoguess) - 1)
         topSprite = sprites.create(imagetoguess[image_to_guess_index], SpriteKind.player)
+
+def generar_opcion_peli(imagen_correcta):  
+    global titulos
+    titulo_acertado = titulos[imagenes.index(imagen_correcta)]
+    opciones_incorrectas = []
+    while len(opciones_incorrectas) < 3:
+        indice_aleatorio = Math.random_range(0,len(titulos) -1)
+        opcion = titulos[indice_aleatorio]
+        if opcion != titulo_acertado and opcion not in opciones_incorrectas:
+            opciones_incorrectas.append(opcion)
+
+    opciones = opciones_incorrectas + [titulo_acertado]    
+    for i in range(contar_elementos(opciones)):
+       cambio_de_index = Math.random_range(0, contar_elementos(opciones) -1) 
+       temp = opciones[i]
+       opciones[i] = opciones[cambio_de_index]
+       opciones[cambio_de_index] = temp
+
+    return opciones, titulo_acertado
+def mostrar_opciones(opciones):
+    global intentos
+    for i in range(4):
+       
+        text_sprite = sprites.create(imagen_aleatoria(opciones[i]), SpriteKind.text)
+        text_sprite.x = 10
+        text_sprite.y = 10 + i * 15
+        text_sprite.on_click(lambda index=i: verificar_respuesta(opciones[index]))
+
+##def verificar_respuesta(opcion_seleccionada):
+    ##global respuesta_correcta, image_to_guess_index, imagetoguess, topSprite, Nivel, intentos
+
+##if opcion_seleccionada == respuesta_correcta:
+    ##game.splash("¡Correcto!")  # Mostrar mensaje
+        Nivel += 1
+        manejamos_niveles()  # Ir al siguiente nivel
+    else:
+        game.splash("¡Incorrecto!")  # Mostrar mensaje
+        intentos += 1
+        if intentos < 3:
+            # Mostrar la siguiente parte de la imagen
+            image_to_guess_index += 1
+            topSprite.set_image(imagetoguess[image_to_guess_index])
+        else:
+            game.splash("Perdiste. La respuesta era: " + respuesta_correcta)
+            Nivel = 0
+            manejamos_niveles()
+
+def contar_elementos(lista):
+    contador = 0
+    for _ in lista:
+        contador += 1
+    return contador       
 def seleccionar_imagen_aleatoria():
     global indice, lalaland, sorrytobotheryou, cityofgods, psycho, shrek, blade, nosferatu, dracula, dreamscenario, schoolOfRock, monkeyman, matilda, parasitos, avenger, gatoBOTAS, diaFuera, elPadrino, elOSCURO, asbestas, backtothefuture, blackswan, cityofgods2, cloverfield, coco, eldiadelabestia, fighclub, lalaland2, panslaberint, psycho2, silenceofthelambs, sorrytobotheryou2, topgun, torrente, thegraduate, rec, pulpfiction, deadpoetssociety, inception, titulos, imagenes, peliculaAleatoria, imagenAleatoria
     indice = 0
@@ -5360,6 +5412,7 @@ def seleccionar_imagen_aleatoria():
     peliculaAleatoria = titulos[indice]
     imagenAleatoria = imagenes[indice]
     return imagenAleatoria
+intentos = 0
 imagenAleatoria: Image = None
 peliculaAleatoria = ""
 imagenes: List[Image] = []

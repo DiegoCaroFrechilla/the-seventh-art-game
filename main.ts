@@ -671,6 +671,41 @@ function manejamos_niveles() {
     
 }
 
+function generar_opcion_peli(imagen_correcta: any): any[] {
+    let indice_aleatorio: number;
+    let opcion: string;
+    let cambio_de_index: number;
+    let temp: any;
+    
+    let titulo_acertado = titulos[imagenes.indexOf(imagen_correcta)]
+    let opciones_incorrectas = []
+    while (opciones_incorrectas.length < 3) {
+        indice_aleatorio = Math.randomRange(0, titulos.length - 1)
+        opcion = titulos[indice_aleatorio]
+        if (opcion != titulo_acertado && opciones_incorrectas.indexOf(opcion) < 0) {
+            opciones_incorrectas.push(opcion)
+        }
+        
+    }
+    let opciones = opciones_incorrectas.concat([titulo_acertado])
+    for (let i = 0; i < contar_elementos(opciones); i++) {
+        cambio_de_index = Math.randomRange(0, contar_elementos(opciones) - 1)
+        temp = opciones[i]
+        opciones[i] = opciones[cambio_de_index]
+        opciones[cambio_de_index] = temp
+    }
+    return [opciones, titulo_acertado]
+}
+
+
+function contar_elementos(lista: any[]): number {
+    let contador = 0
+    for (let _ of lista) {
+        contador += 1
+    }
+    return contador
+}
+
 function seleccionar_imagen_aleatoria(): Image {
     
     indice = 0
@@ -5318,6 +5353,7 @@ function seleccionar_imagen_aleatoria(): Image {
     return imagenAleatoria
 }
 
+let intentos = 0
 let imagenAleatoria : Image = null
 let peliculaAleatoria = ""
 let imagenes : Image[] = []
