@@ -651,58 +651,91 @@ def manejamos_niveles():
         imagetoguess = [topPart, middlePart, bottomPart]
         image_to_guess_index = Math.random_range(0, len(imagetoguess) - 1)
         topSprite = sprites.create(imagetoguess[image_to_guess_index], SpriteKind.player)
-
-def generar_opcion_peli(imagen_correcta):  
-    global titulos
+def generar_opcion_peli(imagen_correcta):
     titulo_acertado = titulos[imagenes.index(imagen_correcta)]
     opciones_incorrectas = []
+    
     while len(opciones_incorrectas) < 3:
-        indice_aleatorio = Math.random_range(0,len(titulos) -1)
+        indice_aleatorio = Math.random_range(0, len(titulos) - 1)
         opcion = titulos[indice_aleatorio]
         if opcion != titulo_acertado and opcion not in opciones_incorrectas:
             opciones_incorrectas.append(opcion)
-
-    opciones = opciones_incorrectas + [titulo_acertado]    
-    for i in range(contar_elementos(opciones)):
-       cambio_de_index = Math.random_range(0, contar_elementos(opciones) -1) 
-       temp = opciones[i]
-       opciones[i] = opciones[cambio_de_index]
-       opciones[cambio_de_index] = temp
-
+   
+    opciones = opciones_incorrectas + [titulo_acertado]
+    
+    for i in range(contar_elementos([opciones])):
+        cambio_de_index = Math.random_range(0, contar_elementos([opciones]) - 1)
+        temp = opciones[i]
+        opciones[i] = opciones[cambio_de_index]
+        opciones[cambio_de_index] = temp
+    
     return opciones, titulo_acertado
-def mostrar_opciones(opciones):
-    global intentos
-    for i in range(4):
-       
-        text_sprite = sprites.create(imagen_aleatoria(opciones[i]), SpriteKind.text)
-        text_sprite.x = 10
-        text_sprite.y = 10 + i * 15
-        text_sprite.on_click(lambda index=i: verificar_respuesta(opciones[index]))
 
-##def verificar_respuesta(opcion_seleccionada):
-    ##global respuesta_correcta, image_to_guess_index, imagetoguess, topSprite, Nivel, intentos
+def mostrar_opciones(opciones, respuesta_correcta):
+    global cursor, texto_sprites
+    
+   
+    cursor = sprites.create(img("""
+        . . . . . . . . . . . . . . . .
+        . . . . . . 2 2 . . . . . . . .
+        . . . . . 2 2 2 2 . . . . . . .
+        . . . . 2 2 2 2 2 2 . . . . . .
+        . . . 2 2 2 2 2 2 2 2 . . . . .
+        . . 2 2 2 2 2 2 2 2 2 2 . . . .
+        . 2 2 2 2 2 2 2 2 2 2 2 2 . . .
+        . . 2 2 2 2 2 2 2 2 2 2 . . . .
+        . . . 2 2 2 2 2 2 2 2 . . . . .
+        . . . . 2 2 2 2 2 2 . . . . . .
+        . . . . . 2 2 2 2 . . . . . . .
+        . . . . . . 2 2 . . . . . . . .
+        . . . . . . . . . . . . . . . .
+    """), SpriteKind.player)
+    
+   
+    controller.move_sprite(cursor)
+    
+    
+    texto_sprites = []
+    for i in range(contar_elementos([opciones])):
+        text_sprite = sprites.create(img("""  # Sprite vacío
+            . . . . . . . . . . . . . . . .
+        """), SpriteKind.player)
+        text_sprite.set_position(80, 50 + i * 30)
+        text_sprite.say(opciones[i])
+        texto_sprites.append((text_sprite, opciones[i]))
 
-##if opcion_seleccionada == respuesta_correcta:
-    ##game.splash("¡Correcto!")  # Mostrar mensaje
+   
+    def detectar_colision():
+        for pareja in texto_sprites:
+            text_sprite, opcion = pareja
+            if text_sprite.overlaps_with(cursor):
+                verificar_respuesta(opcion, respuesta_correcta)
+                break
+    
+   
+    game.on_update(detectar_colision)
+
+def verificar_respuesta(opcion_seleccionada, respuesta_correcta):
+    global Nivel, intentos
+    
+    if opcion_seleccionada == respuesta_correcta:
+        game.splash("¡Correcto!")
         Nivel += 1
-        manejamos_niveles()  # Ir al siguiente nivel
+        manejamos_niveles()
     else:
-        game.splash("¡Incorrecto!")  # Mostrar mensaje
+        game.splash("¡Incorrecto!")
         intentos += 1
         if intentos < 3:
-            # Mostrar la siguiente parte de la imagen
-            image_to_guess_index += 1
-            topSprite.set_image(imagetoguess[image_to_guess_index])
+            game.splash("Intenta de nuevo")
         else:
             game.splash("Perdiste. La respuesta era: " + respuesta_correcta)
             Nivel = 0
             manejamos_niveles()
-
-def contar_elementos(lista):
-    contador = 0
-    for _ in lista:
+def contar_elementos(lista: List[any]):
+    global contador
+    for _2 in lista:
         contador += 1
-    return contador       
+    return contador   
 def seleccionar_imagen_aleatoria():
     global indice, lalaland, sorrytobotheryou, cityofgods, psycho, shrek, blade, nosferatu, dracula, dreamscenario, schoolOfRock, monkeyman, matilda, parasitos, avenger, gatoBOTAS, diaFuera, elPadrino, elOSCURO, asbestas, backtothefuture, blackswan, cityofgods2, cloverfield, coco, eldiadelabestia, fighclub, lalaland2, panslaberint, psycho2, silenceofthelambs, sorrytobotheryou2, topgun, torrente, thegraduate, rec, pulpfiction, deadpoetssociety, inception, titulos, imagenes, peliculaAleatoria, imagenAleatoria
     indice = 0
@@ -5413,6 +5446,9 @@ def seleccionar_imagen_aleatoria():
     imagenAleatoria = imagenes[indice]
     return imagenAleatoria
 intentos = 0
+texto_sprites = []
+cursor: Sprite = None
+contador = 0
 imagenAleatoria: Image = None
 peliculaAleatoria = ""
 imagenes: List[Image] = []
