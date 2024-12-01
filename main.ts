@@ -650,109 +650,82 @@ function manejamos_niveles() {
 
     }
 
-    //  background = sprites.create(imagen_a_adiniviar, SpriteKind.Player)
+   
     if (Nivel == 4) {
+        nivel4();
+        
 
-        imagen_a_adiniviar = seleccionar_imagen_aleatoria()
-        firstImage = sprites.create(imagen_a_adiniviar, SpriteKind.Player)
+}
+   
+function nivel4() {
+        let imagen_a_adiniviar = seleccionar_imagen_aleatoria();
+        let firstImage = sprites.create(imagen_a_adiniviar, SpriteKind.Player);
 
-        // sectionHeight = imagen_a_adiniviar.height / 3
-        // imageWidth = imagen_a_adiniviar.width
-        // topPart = image.create(imageWidth, sectionHeight)
-        // middlePart = image.create(imageWidth, sectionHeight)
-        // bottomPart = image.create(imageWidth, sectionHeight)
-        // x = 0
-        // while (x <= imageWidth - 1) {
-        //     y = 0
-        //     while (y <= sectionHeight - 1) {
-        //         topPart.setPixel(x, y, imagen_a_adiniviar.getPixel(x, y))
-        //         middlePart.setPixel(x, y, imagen_a_adiniviar.getPixel(x, y + sectionHeight))
-        //         bottomPart.setPixel(x, y, imagen_a_adiniviar.getPixel(x, y + sectionHeight * 2))
-        //         y += 1
-        //     }
-        //     x += 1
-        // }
-        // imagetoguess = [topPart, middlePart, bottomPart]
-        // image_to_guess_index = Math.randomRange(0, imagetoguess.length - 1)
-        // firstImage = sprites.create(imagetoguess[image_to_guess_index], SpriteKind.Player)
-        // centerX = scene.screenWidth() / 2
-        // topY = sectionHeight / 2
-        // middleY = topY + sectionHeight
-        // bottomY = middleY + sectionHeight
-        // if (image_to_guess_index == 0) {
-        //     firstImage.setPosition(centerX, topY)
-        // }
+       
+        pause(4000);
+        firstImage.destroy();
 
-        // if (image_to_guess_index == 1) {
-        //     firstImage.setPosition(centerX, middleY)
-        // }
-        // if (image_to_guess_index == 2) {
-        //     firstImage.setPosition(centerX, bottomY)
-        // }
-
-        pause(400)
-        firstImage.destroy()
-
-        let cursor = sprites.create(img`
+        
+        if (!cursor) {
+            cursor = sprites.create(img`
                     . . . . . . . . . . . . . . . . 
-                                    . . . . . . . . . . . . . . . . 
-                                    . . . . . . . 1 . . . . . . . . 
-                                    . . . . . . 1 f 1 . . . . . . . 
-                                    . . . . . . 1 f 1 . . . . . . . 
-                                    . . . . . 1 f f f 1 . . . . . . 
-                                    . . . . . 1 f f f 1 . . . . . . 
-                                    . . . . 1 f f f f f 1 . . . . . 
-                                    . . . . 1 f f f f f 1 . . . . . 
-                                    . . . 1 f f f f f f f 1 . . . . 
-                                    . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
-                                    . . . . . . . . . . . . . . . . 
-                                    . . . . . . . . . . . . . . . . 
-                                    . . . . . . . . . . . . . . . . 
-                                    . . . . . . . . . . . . . . . . 
-                                    . . . . . . . . . . . . . . . .
-                `, SpriteKind.Player)
-        cursor.setFlag(SpriteFlag.StayInScreen, true)
-        controller.moveSprite(cursor, 100, 100)
-
-        //Escoge tres peliculas al azar
-        let opciones = generarOpcionesAleatorias(3)
-        let textSprites: TextSprite[] = []
-
-        let color = 5
-        //Pone las peliculas 
-        for (let i = 0; i < 4; i++) {
-            let wrappedText = createWrappedText(opciones[i], 15) // Dividir el texto si excede los 15 caracteres por línea
-            let yPos = 5 + i * 30 // Posición vertical inicial
-            // Crear un textsprite para cada línea
-            for (let j = 0; j < wrappedText.length; j++) {
-
-                let textSprite = textsprite.create(wrappedText[j], 0, color) // Texto blanco
-                textSprite.setPosition(80, yPos + j * 15) // Espaciado vertical de 15 píxeles entre líneas
-                textSprites.push(textSprite)
-
-            }
-            color++
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . 1 . . . . . . . . 
+                    . . . . . . 1 f 1 . . . . . . . 
+                    . . . . . . 1 f 1 . . . . . . . 
+                    . . . . . 1 f f f 1 . . . . . . 
+                    . . . . . 1 f f f 1 . . . . . . 
+                    . . . . 1 f f f f f 1 . . . . . 
+                    . . . . 1 f f f f f 1 . . . . . 
+                    . . . 1 f f f f f f f 1 . . . . 
+                    . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . .
+                `, SpriteKind.Player);
+            cursor.setFlag(SpriteFlag.StayInScreen, true);
+            controller.moveSprite(cursor, 100, 100);
+        } else {
+            cursor.setPosition(scene.screenWidth() / 2, scene.screenHeight() / 2);
         }
 
+     
+        let opciones = generarOpcionesAleatorias(3);
+        let textSprites: TextSprite[] = [];
+        let color = 5;
+
+      
+        for (let i = 0; i < 4; i++) {
+            let wrappedText = createWrappedText(opciones[i], 15); 
+            let yPos = 5 + i * 30; 
+            for (let j = 0; j < wrappedText.length; j++) {
+                let textSprite = textsprite.create(wrappedText[j], 0, color);
+                textSprite.setPosition(80, yPos + j * 15);
+                textSprites.push(textSprite);
+            }
+            color++;
+        }
+
+        
         controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             for (let i = 0; i < textSprites.length; i++) {
                 if (isCursorOnTextSprite(cursor, textSprites[i])) {
                     if (textSprites[i].text == peliculaAleatoria) {
-                        game.splash("Correct! The movie is: " + peliculaAleatoria)
-                        //TODO hacer mas peliculas
+                        game.splash("Correct! The movie is: " + peliculaAleatoria);
+                        textSprites.forEach((sprite) => sprite.destroy());
+                        nivel4();
                     } else {
-                        game.splash("Wrong! The correct movie is: " + peliculaAleatoria)
-                        game.reset()
+                        game.splash("Wrong! The correct movie is: " + peliculaAleatoria);
+                        game.reset();
                     }
-                    textSprites.forEach((sprite) => sprite.destroy())
-                    return
+                    return;
                 }
             }
-        })
+        });
     }
-
 }
-
 function createWrappedText(text: string, maxLength: number): string[] {
     let lines: string[] = []
     let words = text.split(" ")
@@ -786,12 +759,11 @@ function isCursorOnTextSprite(cursor: Sprite, textSprite: TextSprite): boolean {
 function generarOpcionesAleatorias(numOpcionesIncorrectas: number): string[] {
     let opciones: string[] = []
 
-    // Generar las opciones incorrectas
     while (opciones.length < numOpcionesIncorrectas) {
         let incorrectoIndice = Math.randomRange(0, titulos.length - 1)
         let incorrecto = titulos[incorrectoIndice]
 
-        // Verificar que no sea la correcta ni repetida
+     
         let yaExiste = false
         for (let opcion of opciones) {
             if (opcion == incorrecto) {
@@ -805,10 +777,10 @@ function generarOpcionesAleatorias(numOpcionesIncorrectas: number): string[] {
         }
     }
 
-    // Agregar la película correcta a las opciones
+
     opciones.push(peliculaAleatoria)
 
-    // Mezclar las opciones para que aparezcan en orden aleatorio
+  
     opciones.sort(() => Math.random() - 0.5)
 
     return opciones
@@ -5461,7 +5433,7 @@ function seleccionar_imagen_aleatoria(): Image {
                         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     `
-    titulos = ["Parasites", "La La Land", "Sorry To Bother You", "City of God", "Psycho", "Shrek", "Blade", "Nosferatu", "Bram Stoker's Dracula", "Dram Scenario", "School of Rock", "Monkey Man", "Matilda", "Avengers: Endgame", "Puss in Boots: The Last Wish", "Ferris Bueller's Day Off", "The Godfather", "The Dark Knight", "As Bestas", "Back to the Future", "Black Swan", "Cloverfield", "Coco", "El dia de la bestia", "Fight Club", "El laberinto del fauno", "The Silence of the Lambs", "Top Gun: Maverick", "Torrente, el brazo tonto de la ley", "The Graduate", "[REC]", "Pulp Fiction", "Inception"]
+    titulos = ["Parasites", "La La Land", "Sorry To Bother You", "City of God", "Psycho", "Shrek", "Blade", "Nosferatu", "Bram Stoker's Dracula", "Dram Scenario", "School of Rock", "Monkey Man", "Matilda", "Avengers: Endgame", "Puss in Boots", "Day Off", "The Godfather", "The Dark Knight", "As Bestas", "Back to the Future", "Black Swan", "Cloverfield", "Coco", "El dia de la bestia", "Fight Club", "El laberinto del fauno", "The Silence of the Lambs", "Top Gun: Maverick", "Torrente", "The Graduate", "[REC]", "Pulp Fiction", "Inception"]
     imagenes = [parasitos, lalaland, sorrytobotheryou, cityofgods, psycho, shrek, blade, nosferatu, dracula, dreamscenario, schoolOfRock, monkeyman, matilda, avenger, gatoBOTAS, diaFuera, elPadrino, elOSCURO, asbestas, backtothefuture, blackswan, cloverfield, coco, eldiadelabestia, fighclub, panslaberint, silenceofthelambs, topgun, torrente, thegraduate, rec, pulpfiction, inception]
     indice = Math.randomRange(0, titulos.length - 1)
     peliculaAleatoria = titulos[indice]
@@ -5569,6 +5541,7 @@ let imagen_aleatoria = 0
 let background22 = null
 let background: Sprite = null
 let imagen_a_adiniviar: Image = null
+let cursor: Sprite = null;
 background = null
 Nivel = 0
 manejamos_niveles()
