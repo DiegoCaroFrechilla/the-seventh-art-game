@@ -2,7 +2,7 @@ function manejamos_niveles() {
     let imageWidth: number;
     let x: number;
     let y: number;
-    
+
     if (Nivel == 0) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -126,13 +126,13 @@ function manejamos_niveles() {
                             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.Player)
-        game.splash("SALVANDO EL SEPTIMO ARTE")
+        game.splash("SHALVANDO EL SEPTIMO ARTE")
         if (controller.A.isPressed()) {
             Nivel = 1
         }
-        
+
     }
-    
+
     if (Nivel == 1) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -260,9 +260,9 @@ function manejamos_niveles() {
         if (controller.A.isPressed()) {
             Nivel = 2
         }
-        
+
     }
-    
+
     if (Nivel == 2) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -390,9 +390,9 @@ function manejamos_niveles() {
         if (controller.A.isPressed()) {
             Nivel = 3
         }
-        
+
     }
-    
+
     if (Nivel == 3) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -520,9 +520,9 @@ function manejamos_niveles() {
         if (controller.A.isPressed()) {
             Nivel = 4
         }
-        
+
     }
-    
+
     //  background = sprites.create(imagen_a_adiniviar, SpriteKind.Player)
     if (Nivel == 4) {
         background = sprites.create(img`
@@ -666,9 +666,27 @@ function manejamos_niveles() {
         }
         imagetoguess = [topPart, middlePart, bottomPart]
         image_to_guess_index = Math.randomRange(0, imagetoguess.length - 1)
-        topSprite = sprites.create(imagetoguess[image_to_guess_index], SpriteKind.Player)
+        firstImage = sprites.create(imagetoguess[image_to_guess_index], SpriteKind.Player)
+        
+        
+
+        let centerX = scene.screenWidth() / 2
+        let topY = sectionHeight / 2
+        let middleY = topY + sectionHeight
+        let bottomY = middleY + sectionHeight
+
+
+        if (image_to_guess_index == 0) {
+            firstImage.setPosition(centerX, topY)
+        }
+        if (image_to_guess_index == 1) {
+            firstImage.setPosition(centerX, middleY)
+        }
+        if (image_to_guess_index == 2) {
+            firstImage.setPosition(centerX, bottomY)
+        }
     }
-    
+
 }
 
 function generar_opcion_peli(imagen_correcta: any): any[] {
@@ -707,7 +725,7 @@ function contar_elementos(lista: any[]): number {
 }
 
 function seleccionar_imagen_aleatoria(): Image {
-    
+
     indice = 0
     lalaland = img`
         ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -5353,56 +5371,55 @@ function seleccionar_imagen_aleatoria(): Image {
     return imagenAleatoria
 }
 
-let intentos = 0
-let imagenAleatoria : Image = null
+let imagenAleatoria: Image = null
 let peliculaAleatoria = ""
-let imagenes : Image[] = []
-let titulos : string[] = []
-let inception : Image = null
-let deadpoetssociety : Image = null
-let pulpfiction : Image = null
-let rec : Image = null
-let thegraduate : Image = null
-let torrente : Image = null
-let topgun : Image = null
-let sorrytobotheryou2 : Image = null
-let silenceofthelambs : Image = null
-let psycho2 : Image = null
-let panslaberint : Image = null
-let lalaland2 : Image = null
-let fighclub : Image = null
-let eldiadelabestia : Image = null
-let coco : Image = null
-let cloverfield : Image = null
-let cityofgods2 : Image = null
-let blackswan : Image = null
-let backtothefuture : Image = null
-let asbestas : Image = null
-let elOSCURO : Image = null
-let elPadrino : Image = null
-let diaFuera : Image = null
-let gatoBOTAS : Image = null
-let avenger : Image = null
-let parasitos : Image = null
-let matilda : Image = null
-let monkeyman : Image = null
-let schoolOfRock : Image = null
-let dreamscenario : Image = null
-let dracula : Image = null
-let nosferatu : Image = null
-let blade : Image = null
-let shrek : Image = null
-let psycho : Image = null
-let cityofgods : Image = null
-let sorrytobotheryou : Image = null
-let lalaland : Image = null
+let imagenes: Image[] = []
+let titulos: string[] = []
+let inception: Image = null
+let deadpoetssociety: Image = null
+let pulpfiction: Image = null
+let rec: Image = null
+let thegraduate: Image = null
+let torrente: Image = null
+let topgun: Image = null
+let sorrytobotheryou2: Image = null
+let silenceofthelambs: Image = null
+let psycho2: Image = null
+let panslaberint: Image = null
+let lalaland2: Image = null
+let fighclub: Image = null
+let eldiadelabestia: Image = null
+let coco: Image = null
+let cloverfield: Image = null
+let cityofgods2: Image = null
+let blackswan: Image = null
+let backtothefuture: Image = null
+let asbestas: Image = null
+let elOSCURO: Image = null
+let elPadrino: Image = null
+let diaFuera: Image = null
+let gatoBOTAS: Image = null
+let avenger: Image = null
+let parasitos: Image = null
+let matilda: Image = null
+let monkeyman: Image = null
+let schoolOfRock: Image = null
+let dreamscenario: Image = null
+let dracula: Image = null
+let nosferatu: Image = null
+let blade: Image = null
+let shrek: Image = null
+let psycho: Image = null
+let cityofgods: Image = null
+let sorrytobotheryou: Image = null
+let lalaland: Image = null
 let indice = 0
-let topSprite : Sprite = null
+let firstImage: Sprite = null
 let image_to_guess_index = 0
-let imagetoguess : Image[] = []
-let bottomPart : Image = null
-let middlePart : Image = null
-let topPart : Image = null
+let imagetoguess: Image[] = []
+let bottomPart: Image = null
+let middlePart: Image = null
+let topPart: Image = null
 let sectionHeight = 0
 let Nivel = 0
 let imagenSeleccionada = null
@@ -5444,14 +5461,14 @@ let psycho3 = null
 let cityofgods3 = null
 let sorrytobotheryou3 = null
 let lalaland3 = null
-let titulos2 : number[] = []
+let titulos2: number[] = []
 let indice2 = 0
 let peliculaAleatoria2 = ""
 let imagenAleatoria2 = null
 let imagen_aleatoria = 0
 let background22 = null
-let background : Sprite = null
-let imagen_a_adiniviar : Image = null
+let background: Sprite = null
+let imagen_a_adiniviar: Image = null
 background = null
 Nivel = 0
 manejamos_niveles()
