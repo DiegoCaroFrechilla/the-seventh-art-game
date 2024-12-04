@@ -6,7 +6,9 @@ function manejamos_niveles() {
     let topY: number;
     let middleY: number;
     let bottomY: number;
-
+// NIVELES
+    // Para organizar el juego, lo dividimos en niveles que controlamos con if.
+    // El nivel principal es el 5, donde manejamos el juego entero, el resto son splash explicando el lore.
     if (Nivel == 0) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -645,29 +647,13 @@ function manejamos_niveles() {
                 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                 ffffffff11111ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff11111ffffffff
             `, SpriteKind.Player)
-            Nivel = 4
+            Nivel = 5
         }
 
     }
-
-    if (Nivel == 4) {
-        let textSprite = textsprite.create("Selecciona la dificultad A/Facil B/Dificil")
-        if (controller.A.isPressed()) {
-            time = 4000
-            Nivel = 5
-        }
-        if (controller.B.isPressed()) {
-            time = 500
-            Nivel = 5
-        }
-    }
-
-
-
 
     if (Nivel == 5) {
         nivel5();
-
 
     }
 
@@ -682,23 +668,23 @@ function manejamos_niveles() {
 
         if (!cursor) {
             cursor = sprites.create(img`
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . 1 . . . . . . . . 
-                    . . . . . . 1 f 1 . . . . . . . 
-                    . . . . . . 1 f 1 . . . . . . . 
-                    . . . . . 1 f f f 1 . . . . . . 
-                    . . . . . 1 f f f 1 . . . . . . 
-                    . . . . 1 f f f f f 1 . . . . . 
-                    . . . . 1 f f f f f 1 . . . . . 
-                    . . . 1 f f f f f f f 1 . . . . 
-                    . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
-                `, SpriteKind.Player);
+                . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . 7 . .
+                . . . . . . . . . . . 7 . . .
+                . . . . . . . . . . 7 . . . .
+                . . . . . . . . . 7 . . . . .
+                . . . . . . . . 7 . . . . . .
+                . . . . . . . 7 . . . . . . .
+                . . . . . . 7 . . . . . . . .
+                . . . . . 1 . . . . . . . . .
+                . . . . 1 . . . . . . . . . .
+                . . . 1 . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+            `, SpriteKind.Player);
             cursor.setFlag(SpriteFlag.StayInScreen, true);
             controller.moveSprite(cursor, 100, 100);
         } else {
