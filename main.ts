@@ -268,7 +268,7 @@ function manejamos_niveles() {
         }
 
     }
-
+    
     if (Nivel == 2) {
         background = sprites.create(img`
                 ffffffffffffffffffffffffffffffffffffffffccccccccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -656,7 +656,7 @@ function manejamos_niveles() {
         nivel5();
 
     }
-
+    //Funcion principal del juego. Creamos el cursor y definimos las opciones correctas o incorrectas. 
     function nivel5() {
         let imagen_a_adiniviar = seleccionar_imagen_aleatoria();
         let firstImage = sprites.create(imagen_a_adiniviar, SpriteKind.Player);
@@ -731,6 +731,7 @@ function manejamos_niveles() {
         });
     }
 }
+//Funcion para que el texto salte de linias (No implmentando)
 function createWrappedText(text: string, maxLength: number): string[] {
     let lines: string[] = []
     let words = text.split(" ")
@@ -751,7 +752,7 @@ function createWrappedText(text: string, maxLength: number): string[] {
 
     return lines
 }
-
+//Funcion para saber si el cursor esta tocando el text Sprite. 
 function isCursorOnTextSprite(cursor: Sprite, textSprite: TextSprite): boolean {
     return (
         cursor.x >= textSprite.left &&
@@ -760,7 +761,7 @@ function isCursorOnTextSprite(cursor: Sprite, textSprite: TextSprite): boolean {
         cursor.y <= textSprite.bottom
     )
 }
-
+//Funcion para generar las opciones de texto aleatorias.
 function generarOpcionesAleatorias(numOpcionesIncorrectas: number): string[] {
     let opciones: string[] = []
 
@@ -790,7 +791,7 @@ function generarOpcionesAleatorias(numOpcionesIncorrectas: number): string[] {
 
     return opciones
 }
-
+//Contador de elementos
 function contar_elementos(lista: any[]): number {
     let contador = 0
     for (let _2 of lista) {
@@ -798,7 +799,7 @@ function contar_elementos(lista: any[]): number {
     }
     return contador
 }
-
+// La funcion tambien mas importante, donde creamos los sprites y hacemos la aleatoriedad.
 function seleccionar_imagen_aleatoria(): Image {
 
     indice = 0
@@ -5567,7 +5568,7 @@ function seleccionar_imagen_aleatoria(): Image {
     imagenAleatoria = imagenes[indice]
     return imagenAleatoria
 }
-
+//Variables
 let time = 3000
 let intentos = 1
 let imagenAleatoria: Image = null
@@ -5674,6 +5675,7 @@ let imagen_a_adiniviar: Image = null
 let cursor: Sprite = null;
 background = null
 Nivel = 0
+//Musica
 music.setTempo(80)
 forever(function () {
 
